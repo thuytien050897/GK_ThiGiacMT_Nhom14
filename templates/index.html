@@ -1,4 +1,3 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Upload an image of handwritten digits</h1>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    {% if prediction %}
-    <h2>Predicted Digits: {{ prediction }}</h2>
-    {% endif %}
+    <div class="container">
+        <h1>Handwritten Digit Recognition</h1>
+        <p>Please upload an image containing handwritten digits. The application will predict the digits in the image.</p>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <input type="submit" value="Upload">
+        </form>
+        {% if filename %}
+        <div class="uploaded-image">
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+        {% if prediction %}
+        <div class="result">
+            <label for="prediction">Result:</label>
+            <textarea id="prediction" class="prediction" readonly>{{ prediction }}</textarea>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
